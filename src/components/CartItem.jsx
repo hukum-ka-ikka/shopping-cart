@@ -5,6 +5,7 @@ import {
   reduceQuantity,
   removeFromCart,
 } from "../redux/slices/CartSlice";
+import toast from "react-hot-toast";
 
 const CartItem = ({ product }) => {
   const dispatch = useDispatch();
@@ -12,11 +13,14 @@ const CartItem = ({ product }) => {
   return (
     <div className="flex flex-col gap-4 sm:flex-row border-b-2 border-[#0e121e] pt-2">
       <div className="p-2">
-      <img src={product.image} className="h-40 w-52" loading="lazy"/>
+        <img src={product.image} className="h-40 w-52" loading="lazy" />
       </div>
       <div className="flex flex-col gap-3 ">
         <p className="text-md font-semibold">{product.title}</p>
-        <p className="text-sm">{`${product.description.substring(0, 70)}...`}</p>
+        <p className="text-sm">{`${product.description.substring(
+          0,
+          70
+        )}...`}</p>
         <div className="flex flex-col gap-2 justify-between lg:flex-row">
           <p className="text-sm">
             Item Total: ₹
@@ -26,7 +30,9 @@ const CartItem = ({ product }) => {
           </p>
           <div className="flex justify-between items-center w-[50%] font-semibold lg:w-[30%]">
             <button
-              onClick={() => dispatch(reduceQuantity(product))}
+              onClick={() => {dispatch(reduceQuantity(product));
+                product.quantity===1 && toast.error("Item removed from cart!")
+              }}
               className="flex justify-center items-center border-[1.5px] border-[#0E121E] rounded-l-xl w-[30%] h-6 pb-1 active:bg-slate-100"
             >
               -
@@ -44,7 +50,10 @@ const CartItem = ({ product }) => {
         </div>
         <div className="-mt-1 lg:-mt-3">
           <button
-            onClick={() => dispatch(removeFromCart(product))}
+            onClick={() => {
+              dispatch(removeFromCart(product));
+              toast.error("Item Removed from cart!");
+            }}
             className="text-xs font-semibold text-white bg-[#4F9E5E] rounded-lg p-1 px-2 active:bg-[#2d5a35] mb-2 lg:mb-0"
           >
             Remove Item

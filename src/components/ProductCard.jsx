@@ -5,6 +5,7 @@ import {
   addToCart,
   reduceQuantity,
 } from "../redux/slices/CartSlice";
+import toast from "react-hot-toast";
 
 const ProductCard = ({ product }) => {
   const dispatch = useDispatch();
@@ -31,11 +32,14 @@ const ProductCard = ({ product }) => {
         <img src={product.image} className="h-[80%]" loading="lazy" />
       </div>
 
-      <div className="flex mx-2 mt-4 justify-between items-center">
+      <div className="flex mx-2 mt-4 lg:mt-0 justify-between items-center">
         <p className="text-[#4F9E5E] font-bold text-xs">{`₹ ${product.price}`}</p>
         {quantity === 0 ? (
           <button
-            onClick={() => dispatch(addToCart(product))}
+            onClick={() => {
+              dispatch(addToCart(product));
+              toast.success("Item added to Cart!");
+            }}
             className="flex items-center justify-center text-[0.6rem] font-semibold border-[1.5px] rounded-xl py-2 h-6 text-[#0E121E] border-[#0E121E] w-[50%]"
           >
             <p className="text-[0.6rem] font-semibold -m-2">ADD TO CART</p>
@@ -43,7 +47,10 @@ const ProductCard = ({ product }) => {
         ) : (
           <div className="flex justify-between items-center w-[50%] font-semibold">
             <button
-              onClick={() => dispatch(reduceQuantity(product))}
+              onClick={() => {
+                dispatch(reduceQuantity(product));
+                quantity === 1 && toast.error("Item removed from cart!");
+              }}
               className="flex justify-center items-center border-[1.5px] border-[#0E121E] rounded-l-xl w-[30%] h-6 pb-1 active:bg-slate-100"
             >
               -
