@@ -14,7 +14,7 @@ const ProductCard = ({ product }) => {
   const quantity = index === -1 ? 0 : cartItems[index].quantity;
 
   return (
-    <div className="flex flex-col justify-between border rounded-xl shadow-md w-[80%] h-[45vh] pt-2 pb-1 flex-wrap md:w-[48%] lg:w-[23.5%] transform transition-transform duration-400 hover:scale-x-110 hover:scale-y-105 hover:shadow-lg">
+    <div className="flex flex-col justify-between border rounded-xl shadow-md w-[80%] h-[60vh] lg:h-[45vh] pt-2 pb-1 flex-wrap md:w-[48%] lg:w-[23.5%] transform transition-transform duration-400 hover:scale-x-110 hover:scale-y-105 hover:shadow-lg">
       <div className="flex flex-col items-center h-[85%] gap-2 px-4">
         <h1 className="text-lg font-bold">
           {product.title.length < 10
@@ -28,10 +28,10 @@ const ProductCard = ({ product }) => {
               : `${product.description.substring(0, 50)}...`}
           </p>
         </div>
-        <img src={product.image} className="h-[80%]" loading="lazy"/>
+        <img src={product.image} className="h-[80%]" loading="lazy" />
       </div>
 
-      <div className="flex mx-2 justify-between items-center">
+      <div className="flex mx-2 mt-4 justify-between items-center">
         <p className="text-[#4F9E5E] font-bold text-xs">{`₹ ${product.price}`}</p>
         {quantity === 0 ? (
           <button
